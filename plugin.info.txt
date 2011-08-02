@@ -1,0 +1,9 @@
+base    newpagebox
+author  Symon Bent
+email   hendrybadao@gmail.com
+date    2011-05-16
+name    Newpagebox Plugin
+desc    This add a simple "add new page box" on your page, for a preset namespace
+Syntax : {{newpagebox>ns;button;bymonth|byyear;showns}}
+url     http://wiki.splitbrain.org/plugin:newpagebox
+version 0.2
