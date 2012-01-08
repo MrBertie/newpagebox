@@ -64,19 +64,16 @@ class syntax_plugin_newpagebox extends DokuWiki_Syntax_Plugin {
 		$renderer->info['cache'] = false;
 
 		if ($mode == 'xhtml') {
-            $submit =  "set_newpage('" . $opt['ns'] . ":', '" . $opt['button'] . "'); return true;";
-            $show_ns = ($opt['show_ns'] === true) ? '<div class="namespace">' . $opt['ns'] . ' :</div>' : '';
-		    $renderer->doc .= '<form name="editform" id="editform_' . $opt['button'] . '" method="post" action="" accept-charset="'.$lang['encoding'].'" onsubmit="' . $submit . '">' .
-                              '<div class="newpage" id="newpage">' . $show_ns .
-                                  '<div class="right">' .
-                                      '<input class="button" type="submit" value="' . 'New ' . $opt['button'] . '" tabindex="3" ' .
-                                        'title="' . $this->getLang('newpagebox_tip') . ' «' . $opt['ns'] . '»"/>' .
-                                  '</div>' .
-                                  '<div class="left">' .
-                                      '<input class="edit" type="text" name="title" id="newpage_title_' . $opt['button'] . '" maxlength="255"' .
-                                        'tabindex="2" value="' . $opt['date_ns'] . '"/>' .
-                                  '</div>' .
-                              '</div>' .
+            $submit =  "plugin__newpagebox('" . $opt['ns'] . ":', '" . $opt['button'] . "'); return true;";
+            $show_ns = ($opt['show_ns'] === true) ? '<div class="namespace">' . $opt['ns'] . ':</div>' : '';
+		    $renderer->doc .= '<form name="editform" id="plugin__newpagebox_form_' . $opt['button'] . '" method="post" action="" accept-charset="'.$lang['encoding'].'" onsubmit="' . $submit . '">' .
+                                '<div class="newpagebox" id="plugin__newpagebox">' .
+                                    $show_ns .
+                                    '<input class="edit" type="text" name="title" id="plugin__newpagebox_edit_' . $opt['button'] . '" maxlength="255"' .
+                                    'tabindex="2" value="' . $opt['date_ns'] . '"/>' .
+                                    '<input class="button" type="submit" value="' . 'New ' . $opt['button'] . '" tabindex="3" ' .
+                                    'title="' . $this->getLang('newpagebox_tip') . ' «' . $opt['ns'] . '»"/>' .
+                                '</div>' .
                               '</form>';
 			return true;
 		}
