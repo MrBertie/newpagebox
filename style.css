@@ -1,32 +1,37 @@
 div.dokuwiki .newpagebox {
-    position: relative;
-    height:32px;
-    font-size:110%;
     background:__background_alt__;
-    width:auto;
-    padding:8px 8px 7px 9px;
-    margin:0 auto 3px;
     border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
+    position: relative;
+    font-size:110%;
+    height:32px;
+    margin:0 auto 3px;
+    padding:8px 145px 7px 9px;
+    width:auto;
 }
 div.dokuwiki .newpagebox .edit {
-    height: 24px;
-    font-size: 95%;
-	padding: 2px 5px;
+    display: block;
     float: left;
-    width: 18em;
+    font-size: 95%;
+    height: 25px;
+	padding: 2px 5px;
+    position: relative;
+    width: 100%;
 }
 div.dokuwiki .newpagebox .button {
-    float: left;
-    margin-left: 6px;
+    margin: 0 8px;
+    padding: 2px 5px;
+    position: absolute;
+    right: 0;
+    width: 117px;
 }
 div.dokuwiki .newpagebox .namespace {
-    position: absolute;
-    top: -20px;
-    left: 10px;
-    color: #ABADB3;
-    font-size: 75%;
     background: none;
     border: 0;
+    color: #ABADB3;
+    font-size: 75%;
+    left: 10px;
+    position: absolute;
+    top: -20px;
 }
