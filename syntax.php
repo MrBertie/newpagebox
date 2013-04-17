@@ -64,12 +64,15 @@ class syntax_plugin_newpagebox extends DokuWiki_Syntax_Plugin {
 		$renderer->info['cache'] = false;
 
 		if ($mode == 'xhtml') {
-            $submit =  "plugin__newpagebox('" . $opt['ns'] . ":', '" . $opt['button'] . "'); return true;";
+            $submit =  "plugin_newpagebox('" . $opt['ns'] . ":', '" . $opt['button'] . "'); return true;";
             $show_ns = ($opt['show_ns'] === true) ? '<div class="namespace">' . $opt['ns'] . ':</div>' : '';
-		    $renderer->doc .= '<form name="editform" id="plugin__newpagebox_form_' . $opt['button'] . '" method="post" action="" accept-charset="'.$lang['encoding'].'" onsubmit="' . $submit . '">' .
+            $form_name = 'plugin__newpagebox_form_' . $opt['button'];
+            $box_name = 'plugin__newpagebox_edit_' . $opt['button'];
+		    $renderer->doc .= '<form name="editform" id="' . $form_name .
+                              '" method="post" action="" accept-charset="'.$lang['encoding'].'" onsubmit="' . $submit . '">' .
                                 '<div class="newpagebox" id="plugin__newpagebox">' .
                                     $show_ns .
-                                    '<input class="edit" type="text" name="title" id="plugin__newpagebox_edit_' . $opt['button'] . '" maxlength="255"' .
+                                    '<input class="edit" type="text" name="title" id="' . $box_name . '" maxlength="255"' .
                                     'tabindex="2" value="' . $opt['date_ns'] . '"/>' .
                                     '<input class="button" type="submit" value="' . 'New ' . $opt['button'] . '" tabindex="3" ' .
                                     'title="' . $this->getLang('newpagebox_tip') . ' «' . $opt['ns'] . '»"/>' .
