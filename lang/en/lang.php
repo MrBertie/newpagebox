@@ -9,4 +9,4 @@
 // custom language strings for the plugin
 
 $lang['newpagebox_tip'] = 'Create a new page in following namespace:';
-?>
+$lang['placeholder'] = 'Create page in [ %s ]';
