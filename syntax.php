@@ -1,7 +1,9 @@
 <?php
+
 if( ! defined('DOKU_INC')) define('DOKU_INC',realpath(dirname(__FILE__) . '/../../') . '/');
 if( ! defined('DOKU_PLUGIN')) define('DOKU_PLUGIN', DOKU_INC . 'lib/plugins/');
 require_once(DOKU_PLUGIN . 'syntax.php');
+
 
 class syntax_plugin_newpagebox extends DokuWiki_Syntax_Plugin {
 
@@ -23,10 +25,11 @@ class syntax_plugin_newpagebox extends DokuWiki_Syntax_Plugin {
         $opt = array();
 
         // default options
-        $opt['ns'] = $INFO['namespace'];   // this namespace (default)
-        $opt['button'] = 'page';           // button display name
-        $opt['date_ns'] = '';              // date based sub-namespace
-        $opt['show_ns'] = false;
+        $opt['button']  = 'page';               // display name on submit button
+        $opt['date_ns'] = '';                   // add a date based sub-namespace
+        $opt['ns']      = $INFO['namespace'];   // this namespace (default)
+        $opt['show_ns'] = false;                // show the namespace as a placeholder
+        $opt['width']   = '';                   // CSS width of the text box
 
 		$match = substr($match, 13, -2);
 
@@ -35,7 +38,8 @@ class syntax_plugin_newpagebox extends DokuWiki_Syntax_Plugin {
             list($key, $value) = explode('=', $arg);
             switch ($key) {
                 case 'button':
-                    $opt['button'] = $value;
+                case 'width':
+                    $opt[$key] = $value;
                     break;
                 case 'byday':
                     $opt['date_ns'] = date('Y') . '-' . date('m') . '-' . date('d') . ':';
@@ -68,15 +72,18 @@ class syntax_plugin_newpagebox extends DokuWiki_Syntax_Plugin {
             $submit =  "plugin_newpagebox('" . $opt['ns'] . ":', '" . $opt['button'] . "'); return true;";
             $form_name = 'plugin__newpagebox_form_' . $opt['button'];
             $box_name = 'plugin__newpagebox_edit_' . $opt['button'];
-		    $renderer->doc .= '<form name="editform" id="' . $form_name .
-                              '" method="post" action="" accept-charset="'.$lang['encoding'].'" onsubmit="' . $submit . '">' .
-                                '<div class="newpagebox" id="plugin__newpagebox">' .
-                                    '<input class="edit" type="text" name="title" id="' . $box_name . '" maxlength="255"' .
-                                    'tabindex="2" value="' . $opt['date_ns'] . '" placeholder="' . $placeholder . '"/>' .
-                                    '<input class="button" type="submit" value="' . 'New ' . $opt['button'] . '" tabindex="3" ' .
-                                    'title="' . $this->getLang('newpagebox_tip') . ' «' . $opt['ns'] . '»"/>' .
-                                '</div>' .
-                              '</form>';
+            $width_css = ( ! empty($opt['width'])) ? 'style="width:' . $opt['width'] . ';"' : '';
+		    $renderer->doc .=
+                '<form name="editform" id="' . $form_name . '" ' .
+                    'method="post" action="" accept-charset="'.$lang['encoding'].'" onsubmit="' . $submit . '">' .
+                    '<div class="newpagebox" id="plugin__newpagebox" ' . $width_css . '>' .
+                        '<input class="edit" type="text" name="title" id="' . $box_name . '" maxlength="255"' .
+                        'tabindex="2" value="' . $opt['date_ns'] . '" placeholder="' . $placeholder . '"/>' .
+                        '<input class="button" type="submit" value="' . 'New ' . $opt['button'] . '" tabindex="3" ' .
+                        'title="' . $this->getLang('newpagebox_tip') . ' «' . $opt['ns'] . '»"/>' .
+                    '</div>' .
+                '</form>' .
+                '<div class="clearer"></div>';
 			return true;
 		}
 		return false;
